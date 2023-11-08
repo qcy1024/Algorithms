@@ -1,10 +1,10 @@
 /*Author: chenyu qi*
-*    ÒÑÊµÏÖ²Ù×÷          *
-* 01   ²éÕÒ                 * 
-* 02   ½¨Ê÷                 *
-* 03   ²åÈë                 *
-* 04 Ö§³Öº¯ÊıÖ¸ÕëÖ¸   *
-*  ¶¨²Ù×÷µÄ²ãĞò±éÀú     */
+*    å·²å®ç°æ“ä½œ    *
+* 01   æŸ¥æ‰¾        * 
+* 02   å»ºæ ‘        *
+* 03   æ’å…¥        *
+* 04 æ”¯æŒå‡½æ•°æŒ‡é’ˆæŒ‡*
+*  å®šæ“ä½œçš„å±‚åºéå†*/
 #include <iostream>
 #include <vector>
 #include <queue>
@@ -18,16 +18,16 @@ struct avlTree
     int height;
     avlTree* lchild;
     avlTree* rchild;
-    //Ò¶×Ó½ÚµãµÄ¸ß¶È¶¨ÒåÎª1£¬Ò¶×Ó½ÚµãµÄº¢×Ó½Úµã(NULL)¸ß¶ÈÎª0
+    //å¶å­èŠ‚ç‚¹çš„é«˜åº¦å®šä¹‰ä¸º1ï¼Œå¶å­èŠ‚ç‚¹çš„å­©å­èŠ‚ç‚¹(NULL)é«˜åº¦ä¸º0
     avlTree(elemType data) : data(data), height(1),lchild(NULL),rchild(NULL){};
 };
 
-//²ãĞò±éÀú
+//å±‚åºéå†
 void layerOrderTravel(const avlTree* const& root,void (*fun) (const avlTree* const &))
 {
     if( root == NULL )
     {
-        std::cout << "³¢ÊÔ¶Ô¿ÕÊ÷½øĞĞ±éÀú" << std::endl;
+        std::cout << "å°è¯•å¯¹ç©ºæ ‘è¿›è¡Œéå†" << std::endl;
         return ;
     }
     std::queue<const avlTree*> q;
@@ -43,7 +43,7 @@ void layerOrderTravel(const avlTree* const& root,void (*fun) (const avlTree* con
     }
 }
 
-//ÏÈĞò±éÀú£¬±éÀúĞòÁĞÊÇÓĞĞòµÄ
+//å…ˆåºéå†ï¼Œéå†åºåˆ—æ˜¯æœ‰åºçš„
 void preOrderTravel(const avlTree* const& root,void (*fun) (const avlTree* const &))
 {
     if( root == NULL ) return ;
@@ -52,8 +52,8 @@ void preOrderTravel(const avlTree* const& root,void (*fun) (const avlTree* const
     preOrderTravel(root->rchild,fun);
 }
 
-//ÕâÀïµÚÒ»¸öconst±íÊ¾avlTreeÖ¸ÏòµÄ¶ÔÏóÊÇconstµÄ£¬µÚ¶ş¸öconst±íÊ¾avlTreeÊÇconstµÄ¡£
-//ÒıÓÃ·ûºÅ&±íÊ¾rootÊÇÒ»¸ö¶Ô const avlTree* const ÀàĞÍµÄ¶ÔÏóµÄÒıÓÃ¡£
+//è¿™é‡Œç¬¬ä¸€ä¸ªconstè¡¨ç¤ºavlTreeæŒ‡å‘çš„å¯¹è±¡æ˜¯constçš„ï¼Œç¬¬äºŒä¸ªconstè¡¨ç¤ºavlTreeæ˜¯constçš„ã€‚
+//å¼•ç”¨ç¬¦å·&è¡¨ç¤ºrootæ˜¯ä¸€ä¸ªå¯¹ const avlTree* const ç±»å‹çš„å¯¹è±¡çš„å¼•ç”¨ã€‚
 int getHeight(const avlTree* const& root)
 {
     if( root == NULL ) return 0;
@@ -63,8 +63,8 @@ int getHeight(const avlTree* const& root)
 int getBalance(const avlTree* const& root)
 {
     if( root == NULL ) return 0;
-    //×¢ÒâÕâÀïÊ¹ÓÃgetHeight»ñÈ¡¸ß¶ÈºÜÖØÒª£¬¶ø²»ÄÜÖ±½ÓÓÃÖ¸Õë£ºroot->lchild->heightÒÔ¼°root->rchild->height
-    //ÒòÎªrootµÄ×óº¢×ÓºÍÓĞº¢×ÓÓĞ¿ÉÄÜÎªNULL£¬Ö±½Ó»ñÈ¡Ö¸ÕëÈİÒ×µ¼ÖÂ³ÌĞò±ÀÀ£¡£
+    //æ³¨æ„è¿™é‡Œä½¿ç”¨getHeightè·å–é«˜åº¦å¾ˆé‡è¦ï¼Œè€Œä¸èƒ½ç›´æ¥ç”¨æŒ‡é’ˆï¼šroot->lchild->heightä»¥åŠroot->rchild->height
+    //å› ä¸ºrootçš„å·¦å­©å­å’Œæœ‰å­©å­æœ‰å¯èƒ½ä¸ºNULLï¼Œç›´æ¥è·å–æŒ‡é’ˆå®¹æ˜“å¯¼è‡´ç¨‹åºå´©æºƒã€‚
     return getHeight(root->lchild) - getHeight(root->rchild);
 }
 
@@ -73,13 +73,13 @@ void updateHeight(avlTree* const root)
     if( root == NULL )
     {
         //throw
-        std::cout << "updateHeightÖĞ³¢ÊÔ¶Ô¿ÕÊ÷¸üĞÂ¸ß¶È" << std::endl;
+        std::cout << "updateHeightä¸­å°è¯•å¯¹ç©ºæ ‘æ›´æ–°é«˜åº¦" << std::endl;
         return ;
     }
     root->height = std::max( getHeight(root->lchild),getHeight(root->rchild) ) + 1;
 }
 
-//¶ÔÒÔrootÎª¸ùµÄ×ÓÊ÷½øĞĞ×óĞı
+//å¯¹ä»¥rootä¸ºæ ¹çš„å­æ ‘è¿›è¡Œå·¦æ—‹
 void lRotate(avlTree*& root)
 {
     avlTree* node = root->rchild;
@@ -90,7 +90,7 @@ void lRotate(avlTree*& root)
     root = node;
 }
 
-//ÓÒĞı
+//å³æ—‹
 void rRotate(avlTree*& root)
 {
     avlTree* node = root->lchild;
@@ -101,10 +101,10 @@ void rRotate(avlTree*& root)
     root = node;
 }
 
-//²åÈë
+//æ’å…¥
 void avlTreeInsert(avlTree*& root,elemType x)
 {
-    //¶ş²æ²éÕÒÊ÷ºÍÆ½ºâ¶ş²æÊ÷µÄ²åÈëÎ»ÖÃÒ»¶¨ÊÇÒ¶×Ó½ÚµãµÄº¢×Ó(NULL)
+    //äºŒå‰æŸ¥æ‰¾æ ‘å’Œå¹³è¡¡äºŒå‰æ ‘çš„æ’å…¥ä½ç½®ä¸€å®šæ˜¯å¶å­èŠ‚ç‚¹çš„å­©å­(NULL)
     if( root == NULL )
     {
         avlTree* newNode = new avlTree(x);
@@ -113,22 +113,22 @@ void avlTreeInsert(avlTree*& root,elemType x)
     }
     if( x == root->data )
     {
-        std::cout << "ÔªËØ" << x << "ÒÑ¾­´æÔÚ" << std::endl;
+        std::cout << "å…ƒç´ " << x << "å·²ç»å­˜åœ¨" << std::endl;
         return ;
     }
     if( x < root->data )
     {
         avlTreeInsert(root->lchild,x);
         updateHeight(root);
-        //ÔÚrootµÄ×ó×ÓÊ÷ÖĞ²åÈë£¬Èôµ¼ÖÂ²»Æ½ºâ£¬rootµÄÆ½ºâÒò×ÓÒ»¶¨ÊÇ2
+        //åœ¨rootçš„å·¦å­æ ‘ä¸­æ’å…¥ï¼Œè‹¥å¯¼è‡´ä¸å¹³è¡¡ï¼Œrootçš„å¹³è¡¡å› å­ä¸€å®šæ˜¯2
         if( getBalance(root) == 2 )
         {
-            //LLĞÍ£¬¶ÔrootÓÒĞı
+            //LLå‹ï¼Œå¯¹rootå³æ—‹
             if( getBalance(root->lchild) == 1 )
             {
                 rRotate(root);
             }
-            //LRĞÍ£¬ÏÈ¶ÔrootµÄ×ó×ÓÊ÷×óĞı£¬ÔÙ¶ÔrootÓÒĞı
+            //LRå‹ï¼Œå…ˆå¯¹rootçš„å·¦å­æ ‘å·¦æ—‹ï¼Œå†å¯¹rootå³æ—‹
             else if( getBalance(root->lchild) == -1 )
             {
                 lRotate(root->lchild);
@@ -140,16 +140,16 @@ void avlTreeInsert(avlTree*& root,elemType x)
     {
         avlTreeInsert(root->rchild,x);
         updateHeight(root);
-        //ÔÚrootµÄÓÒ×ÓÊ÷ÖĞ²åÈë£¬Èôµ¼ÖÂ²»Æ½ºâ£¬rootµÄÆ½ºâÒò×ÓÒ»¶¨ÊÇ-2
+        //åœ¨rootçš„å³å­æ ‘ä¸­æ’å…¥ï¼Œè‹¥å¯¼è‡´ä¸å¹³è¡¡ï¼Œrootçš„å¹³è¡¡å› å­ä¸€å®šæ˜¯-2
         if( getBalance(root) == -2 )
         {
-            //RLĞÍ£¬ÏÈ¶ÔrootµÄÓÒ×ÓÊ÷ÓÒĞı£¬ÔÙ¶Ôroot×óĞı
+            //RLå‹ï¼Œå…ˆå¯¹rootçš„å³å­æ ‘å³æ—‹ï¼Œå†å¯¹rootå·¦æ—‹
             if( getBalance(root->rchild) == 1 )
             {
                 rRotate(root->rchild);
                 lRotate(root);
             }
-            //RRĞÍ£¬Ö±½Ó¶Ôroot×óĞı
+            //RRå‹ï¼Œç›´æ¥å¯¹rootå·¦æ—‹
             if( getBalance(root->rchild) == -1 )
             {
                 lRotate(root);
@@ -159,7 +159,7 @@ void avlTreeInsert(avlTree*& root,elemType x)
 
 }
 
-//½¨Á¢
+//å»ºç«‹
 avlTree* createAVLTree(const std::vector<elemType>& elems)
 {
     avlTree* root = NULL;
@@ -170,12 +170,12 @@ avlTree* createAVLTree(const std::vector<elemType>& elems)
     return root;
 }
 
-//²éÕÒ
+//æŸ¥æ‰¾
 avlTree* avlTreeFind(avlTree* const& root,elemType x)
 {
     if( root == NULL )
     {
-        std::cout << "¶Ô¿ÕÊ÷½øĞĞ²éÕÒ" << std::endl;
+        std::cout << "å¯¹ç©ºæ ‘è¿›è¡ŒæŸ¥æ‰¾" << std::endl;
         return NULL;
     }
     if( root->data == x )
