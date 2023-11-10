@@ -28,9 +28,9 @@ template <typename elemType> struct _avlTreeNode
     int height;
     _avlTreeNode<elemType>* lchild;
     _avlTreeNode<elemType>* rchild;
-    //叶子节点的高度定义为1，叶子节点的孩子节点(NULL)高度为0
+    //叶子节点的高度定义为1，叶子节点的孩子节点(nullptr)高度为0
     _avlTreeNode<elemType>() = delete;
-    _avlTreeNode<elemType>(elemType data) : data(data), height(1), lchild(NULL), rchild(NULL) {};
+    _avlTreeNode<elemType>(elemType data) : data(data), height(1), lchild(nullptr), rchild(nullptr) {};
 };
 
 template <typename elemType>
@@ -40,7 +40,7 @@ using avlTreeNode = _avlTreeNode<elemType>*;
 template <typename elemType>
 void layerOrderTravel(const avlTreeNode<elemType>& root, void (*fun) (const avlTreeNode<elemType>&))
 {
-    if (root == NULL)
+    if (root == nullptr)
     {
         //std::cout << "尝试对空树进行遍历" << std::endl;
         return;
@@ -50,8 +50,8 @@ void layerOrderTravel(const avlTreeNode<elemType>& root, void (*fun) (const avlT
     while (!q.empty())
     {
         const avlTreeNode<elemType> node = q.front();
-        if (node->lchild != NULL) q.push(node->lchild);
-        if (node->rchild != NULL) q.push(node->rchild);
+        if (node->lchild != nullptr) q.push(node->lchild);
+        if (node->rchild != nullptr) q.push(node->rchild);
         fun(node);
         q.pop();
     }
@@ -60,14 +60,14 @@ void layerOrderTravel(const avlTreeNode<elemType>& root, void (*fun) (const avlT
 template <typename elemType>
 int getHeight(const avlTreeNode<elemType>& root)
 {
-    if (root == NULL) return 0;
+    if (root == nullptr) return 0;
     return root->height;
 }
 
 template <typename elemType>
 static int getBalance(const avlTreeNode<elemType>& root)
 {
-    if (root == NULL) return 0;
+    if (root == nullptr) return 0;
     //注意这里使用getHeight获取高度很重要，而不能直接用指针：root->lchild->height以及root->rchild->height
     //因为root的左孩子和有孩子有可能为NULL，直接获取指针容易导致程序崩溃。
     return getHeight(root->lchild) - getHeight(root->rchild);
@@ -76,7 +76,7 @@ static int getBalance(const avlTreeNode<elemType>& root)
 template <typename elemType>
 static void updateHeight(avlTreeNode<elemType>& root)
 {
-    if (root == NULL)
+    if (root == nullptr)
     {
         //throw
         //std::cout << "updateHeight中尝试对空树更新高度" << std::endl;
@@ -113,8 +113,8 @@ static void rRotate(avlTreeNode<elemType>& root)
 template <typename elemType>
 void avlTreeInsert(avlTreeNode<elemType>& root, elemType x)
 {
-    //二叉查找树和平衡二叉树的插入位置一定是叶子节点的孩子(NULL)
-    if (root == NULL)
+    //二叉查找树和平衡二叉树的插入位置一定是叶子节点的孩子(nullptr)
+    if (root == nullptr)
     {
         avlTreeNode<elemType> newNode = new _avlTreeNode<elemType>(x);
         root = newNode;
@@ -169,7 +169,7 @@ void avlTreeInsert(avlTreeNode<elemType>& root, elemType x)
 template <typename elemType>
 avlTreeNode<elemType> createAVLTree(std::vector<elemType>& elems)
 {
-    avlTreeNode<elemType> root = NULL;
+    avlTreeNode<elemType> root = nullptr;
     for (int i = 0; i < elems.size(); i++)
         avlTreeInsert(root, elems[i]);
     return root;
@@ -179,10 +179,10 @@ avlTreeNode<elemType> createAVLTree(std::vector<elemType>& elems)
 template <typename elemType>
 avlTreeNode<elemType> avlTreeFind(const avlTreeNode<elemType>& root, elemType x)
 {
-    if (root == NULL)
+    if (root == nullptr)
     {
         //std::cout << "正在尝试对空树进行查找" << std::endl;
-        return NULL;
+        return nullptr;
     }
     if (root->data == x)
         return root;
@@ -190,7 +190,7 @@ avlTreeNode<elemType> avlTreeFind(const avlTreeNode<elemType>& root, elemType x)
         avlTreeFind(root->lchild, x);
     else if (x > root->data)
         avlTreeFind(root->rchild, x);
-    return NULL;
+    return nullptr;
 }
 
 //将遍历操作定义为打印节点的值
